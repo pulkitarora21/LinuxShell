@@ -53,7 +53,7 @@ int main(){
     return 0;
 }
 
-void parse(char *str){		//parser
+void parse(char *str){
     char **tokens = (char **)malloc(sizeof(char *)*256);
     int tokenCount = tokenize(tokens, str, "|");
 
@@ -65,7 +65,7 @@ void parse(char *str){		//parser
     }
 }
 
-void pipeCommand(char **tokens, int tokenCount){		//executes commands with pipes
+void pipeCommand(char **tokens, int tokenCount){
     int numPipes = tokenCount-1;
     int fds[numPipes][2];
     int i;
@@ -213,7 +213,7 @@ void basicCommand(char *str){
 
 
 
-int tokenize(char **tokens, char* input, char *delimiter) { //break the command into tokens
+int tokenize(char **tokens, char* input, char *delimiter) {
     // making a copy of input string
     int len = strlen(input);
     char *str = (char *)malloc(sizeof(char)*len+1);
@@ -234,7 +234,7 @@ int tokenize(char **tokens, char* input, char *delimiter) { //break the command 
     return i;   // returns the array of tokens
 }
 
-char *trim(char *str) { 		//trim spaces
+char *trim(char *str) {
     int len = strlen(str);
     char *tmp = (char *)malloc(sizeof(char)*len+1);
     strncpy(tmp, str, len);
@@ -259,7 +259,7 @@ char *trim(char *str) { 		//trim spaces
     return tmp;
 }
 
-char *trimmedSubstr(char *src, int start, int len){ //trim the specified substring
+char *trimmedSubstr(char *src, int start, int len){
     char *dest = (char *)malloc(sizeof(char)*64);
     int i, j=0;
     for(i=start; i<start+len; i++){
@@ -270,7 +270,7 @@ char *trimmedSubstr(char *src, int start, int len){ //trim the specified substri
     return trim(dest);
 }
 
-char **breakIntoFour(char *str){ 		//break into 4 parts, main command, text of command, read from (if command has redirection), write to (if command has redirection)
+char **breakIntoFour(char *str){
     int i;
     int len = strlen(str);
     int writeToStart=-1, writeToLen=-1, writeToMode=-1;
@@ -325,13 +325,13 @@ char **breakIntoFour(char *str){ 		//break into 4 parts, main command, text of c
 
 }
 
-void prompt(){ //shell prompt 
+void prompt(){
     char cwd[100];
     getcwd(cwd, 100);
     printf("MyShell@%s>>>", cwd);
 }
 
-int inbuiltCommands(char *input) //executes inbuilt commands
+int inbuiltCommands(char *input)
 {
     int mode=0;         /*mode = 1 for cd, history,! ; 0 for inbuilt commands; -1 for exit*/
     char ** args=(char **)malloc(sizeof(char *)*256);
@@ -405,7 +405,7 @@ return mode;
 
 }
 
-void addToHistory(char *input) //add a command to History buffer
+void addToHistory(char *input)
 {
     char *arr= malloc(sizeof(char)*MAX_CMD_LEN);
     int j;
@@ -420,7 +420,7 @@ void addToHistory(char *input) //add a command to History buffer
 
 }
 
-void printHistory(void) //print all the commands from history
+void printHistory(void)
 {
     int c=1,ai;
 
@@ -431,7 +431,7 @@ void printHistory(void) //print all the commands from history
     }
 }
 
-void printLastNHistory(int n){ //print last N commands from history
+void printLastNHistory(int n){
     int c=curHistory-n,ai;
     if(c<0){
         c=0;
@@ -443,13 +443,13 @@ void printLastNHistory(int n){ //print last N commands from history
     }
 }
 
-char *getFromHistory(int num) //get nth command from history
+char *getFromHistory(int num)
 {
     printf("%s\n",historyBuffer[num-1]);
     return historyBuffer[num-1];
 }
 
-void cdCommand(char *args) //cd command
+void cdCommand(char *args)
 {
     int ret;
      //printf("%s",args[1]);
